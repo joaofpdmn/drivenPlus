@@ -3,10 +3,10 @@ import Title from "../common/Title";
 
 export default function Plan({img, price}){
     return( 
-        <div className="box">
+        <Box>
             <img src={img} alt="driven"/>
             <Title size={28}>{price},99</Title>
-        </div>
+        </Box>
     )
 }
 
