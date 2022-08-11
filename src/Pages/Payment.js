@@ -8,6 +8,11 @@ import Input from "../common/Input";
 import Button from "../common/Button"
 
 export default function Payment({logo, price, plan}){
+    const buttonTheme = {
+        pattern: 'FF4791',
+        orange: 'FF4747', 
+        gray: 'CECECE'
+    };
     return(
         <><Container>
             <Padding value={70} />

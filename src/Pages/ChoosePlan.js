@@ -8,6 +8,11 @@ import yellowDriven from '../assets/img/yellowVector.png';
 import Plan from "../Components/Plan";
 
 export default function ChoosePlan(){
+    const buttonTheme = {
+        pattern: 'FF4791',
+        orange: 'FF4747', 
+        gray: 'CECECE'
+    };
     return (
         <Container>
             <Padding value={30}/>
