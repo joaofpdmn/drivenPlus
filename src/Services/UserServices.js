@@ -14,4 +14,13 @@ function SignUpRequest(body){
     return signUpPromise; 
 }
 
-export { LoginRequest, SignUpRequest };
+function planRequest(body){
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    const planPromise = axios.get(`${APIPrefix}/subscriptions/memberships`, config);
+    return planPromise;
+}
+
+export { LoginRequest, SignUpRequest, planRequest };

@@ -24,8 +24,6 @@ export default function Login() {
         password: password,
     };
 
-
-
     function handleSubmit(e) {
         e.preventDefault();
         const loginPromise = LoginRequest(body);
@@ -36,8 +34,7 @@ export default function Login() {
             .then(response => {
                 setLogin(response.data);
                 setUserData(response.data);
-                console.log(response.data);
-                console.log(loginPromise);
+                localStorage.setItem('myToken', response.data.token);
                 alert("Login realizado com sucesso!");
                 navigate("/home");
             })
@@ -48,12 +45,12 @@ export default function Login() {
         if (login !== null && login.membership !== null) {
             alert("Usuário já detetado. Iremos te transferir para a tela inicial");
             navigate("/home");
-            console.log(login);
-            console.log(login.membership);
+            
         }
         else if(login !== null && login.membership === null){
             alert("Usuário detectado, porém sem plano. Iremos te transferir para a tela de escolha de planos.");
             navigate("/subscriptions");
+            console.log(login);
         }
     }, []);
 

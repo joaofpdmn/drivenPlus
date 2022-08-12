@@ -1,26 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import Padding from "../common/Padding";
 import Title from "../common/Title";
 import whiteDriven from '../assets/img/whiteVector.png'
-import greenDriven from '../assets/img/greenVector.png';
-import yellowDriven from '../assets/img/yellowVector.png';
 import Plan from "../Components/Plan";
+import { planRequest } from "../Services/UserServices";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function ChoosePlan(){
+
+
+export default function ChoosePlan() {
     const buttonTheme = {
         pattern: 'FF4791',
-        orange: 'FF4747', 
+        orange: 'FF4747',
         gray: 'CECECE'
     };
+    const navigate = useNavigate();
+    let id = useParams();
+    const [body, setBody] = useState([]);
+    const planPromise = planRequest(body);
+    useEffect(() => {
+        planPromise.catch(e => {
+            alert('Não foi possível carregar os planos.');
+            navigate('/');
+        })
+            .then(response => {
+                setBody(response.data);
+            })
+
+    }, []);
+
+
+
     return (
         <Container>
-            <Padding value={30}/>
+            <Padding value={30} />
             <Title size={32}>Escolha seu plano</Title>
-            <Padding value={24}/>
-            <Plan img={whiteDriven} price={39}/>
-            <Plan img={yellowDriven} price={69}/>
-            <Plan img={greenDriven} price={99}/>
-        </Container>
+            <Padding value={24} />
+            {body.map((value, index) =>
+                <div onClick={() => navigate('/subscriptions/:id')} key={index}>
+                    <Plan img={whiteDriven} price={value.price} key={index} />
+                </div>
+            )
+            };
+        </Container >
     );
 }

@@ -7,7 +7,7 @@ import BenefitsandPrice from "../Components/BenefitsAndPrice";
 import Input from "../common/Input";
 import Button from "../common/Button"
 
-export default function Payment({logo, price, plan}){
+export default function Payment(){
     const buttonTheme = {
         pattern: 'FF4791',
         orange: 'FF4747', 
@@ -21,7 +21,7 @@ export default function Payment({logo, price, plan}){
             <Title size={32}>Driven Plus</Title>
         </Container>
         <Padding value={20}/>
-        <BenefitsandPrice price={price}/>
+        <BenefitsandPrice price={200}/>
         <Padding value={10}/>
         <Container>
             <Input size={300} placeholder="Nome impresso no cartão" />

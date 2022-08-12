@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Title from "../common/Title";
 
-export default function Plan({img, price}){
+export default function Plan({img, price }){
     return( 
         <Box>
             <img src={img} alt="driven"/>
-            <Title size={28}>{price},99</Title>
+            <Title size={28}>{price}</Title>
         </Box>
     )
 }
