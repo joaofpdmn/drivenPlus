@@ -23,4 +23,22 @@ function planRequest(body){
     return planPromise;
 }
 
-export { LoginRequest, SignUpRequest, planRequest };
+function signPlanRequest(id){
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    const signPlanPromise = axios.get(`${APIPrefix}/subscriptions/memberships/${id}`, config);
+    return signPlanPromise;
+}
+
+function confirmSignPlan(body){
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    const confirmSignPlanPromise = axios.post(`${APIPrefix}/subscriptions`, body, config);
+    return confirmSignPlanPromise;
+}
+
+export { LoginRequest, SignUpRequest, planRequest, signPlanRequest, confirmSignPlan };

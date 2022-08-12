@@ -5,9 +5,7 @@ import Title from "../common/Title";
 import whiteDriven from '../assets/img/whiteVector.png'
 import Plan from "../Components/Plan";
 import { planRequest } from "../Services/UserServices";
-import { useNavigate, useParams } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 
 export default function ChoosePlan() {
     const buttonTheme = {
@@ -16,7 +14,6 @@ export default function ChoosePlan() {
         gray: 'CECECE'
     };
     const navigate = useNavigate();
-    let id = useParams();
     const [body, setBody] = useState([]);
     const planPromise = planRequest(body);
     useEffect(() => {
@@ -27,10 +24,7 @@ export default function ChoosePlan() {
             .then(response => {
                 setBody(response.data);
             })
-
     }, []);
-
-
 
     return (
         <Container>
@@ -38,8 +32,8 @@ export default function ChoosePlan() {
             <Title size={32}>Escolha seu plano</Title>
             <Padding value={24} />
             {body.map((value, index) =>
-                <div onClick={() => navigate('/subscriptions/:id')} key={index}>
-                    <Plan img={whiteDriven} price={value.price} key={index} />
+                <div onClick={() => navigate(`/subscriptions/${value.id}`)} key={index}>
+                    <Plan img={value.image} price={value.price} key={index} />
                 </div>
             )
             };
