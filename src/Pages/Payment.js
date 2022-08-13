@@ -12,7 +12,6 @@ import Modal from 'react-modal';
 import money from "../assets/img/money.png"
 import styled from "styled-components";
 import clipboard from "../assets/img/clipboard.png"
-import { findByLabelText } from "@testing-library/react";
 
 export default function Payment() {
     const buttonTheme = {
@@ -44,7 +43,7 @@ export default function Payment() {
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
-        subtitle.style.color = '#background: #000000B2;';
+        subtitle.style.color = '#000000B2';
     }
 
     function closeModal() {
@@ -65,10 +64,11 @@ export default function Payment() {
 
     function handleSubmit(e) {
         const corpo = {
+            membershipId: 1,
             cardName: cardName,
-            digits: digits,
-            securityCode: securityCode,
-            validade: validade,
+            cardNumber: digits,
+            securityNumber: securityCode,
+            expirationDate: validade,
         };
         e.preventDefault();
         console.log(corpo);
@@ -120,13 +120,14 @@ export default function Payment() {
                         style={customStyles}
                         contentLabel="Example Modal"
                     >
-                        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-                        
-                        <div>I am a modal</div>
-                        <form>
-                            <button type="submit"></button>
-                            <div>teste</div>
-                        </form>
+                        <ModalContent>
+                        <h1>Tem certeza que deseja assinar o plano Driven Plus (R$ {body.price})?</h1>
+                        <Padding value={45}/>
+                        <div>
+                            <Button size={95} backgroundColor={buttonTheme.gray} type="submit">Sim</Button>
+                            <Button size={95} backgroundColor={buttonTheme.pattern} type="button" onClick={() => setIsOpen(false)}>Nao</Button>
+                        </div>
+                        </ModalContent>
                     </Modal>
                 </form>
             </Container>
@@ -138,3 +139,35 @@ const Price = styled.span`{
     color: white;
     font-size: 14px;
 }`;
+
+const ModalContent = styled.div`{
+    display: flex;
+    width: 248px;
+    height: 210px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1{
+    color: black;
+    font-weight: 700;
+    font-family: 'Roboto';
+    display:flex;
+    max-width: 204px;
+    max-height: 68px;
+}
+
+button{
+    margin-inline-end: 30px;
+}
+
+div{
+    display:flex;
+    justify-content: space-around;
+    
+}
+
+`
+
+
