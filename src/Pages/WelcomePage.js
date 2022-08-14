@@ -1,38 +1,65 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import whiteDriven from "../assets/img/whiteVector.png"
 import Container from "../common/Container"
 import Title from "../common/Title";
 import Padding from "../common/Padding"
 import Button from "../common/Button"
+import UserContext from "../Context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { deletePlan } from "../Services/UserServices";
+import { setUserData } from "../Services/UserData";
 
-export default function WelcomePage({plan, name}){
+
+export default function WelcomePage() {
     const buttonTheme = {
         pattern: 'FF4791',
-        orange: 'FF4747', 
+        orange: 'FF4747',
         gray: 'CECECE'
     };
+    const navigate = useNavigate();
+    const { login, setLogin } = useContext(UserContext);
+    console.log(login);
+
+    function deletarPlano(){
+        if(window.confirm("Você realmente quer deletar seu plano?")){
+            const confirmDeletePlanPromise = deletePlan();
+            confirmDeletePlanPromise.catch(() => {
+                alert("Não foi possível deletar o plano da sua conta.");
+            })
+            .then(response => {
+                login.membership = null;
+                setUserData(login);
+                alert('Plano excluído com sucesso!');
+                navigate('/');
+            })
+            
+        };
+    }
+
     return (
         <><Header>
             <img src={whiteDriven} alt="logo" />
             <ion-icon name="person-circle-outline"></ion-icon>
         </Header>
-        <Padding value={100}/>
-        <Container>
-            <Title size={24} weight={700}>Olá, fulano</Title>
-            <Padding value={20}></Padding>
-            <Button size={300} backgroundColor={buttonTheme.pattern} >Solicitar brindes</Button>
-            <Button size={300} backgroundColor={buttonTheme.pattern} >Materiais bônus de web</Button>
-            <Button size={300} backgroundColor={buttonTheme.pattern} >Aulas bônus de tech</Button>
-            <Button size={300} backgroundColor={buttonTheme.pattern} >Mentorias personalizadas</Button>
-            <Padding value={150}/>
-            <Button size={300} backgroundColor={buttonTheme.pattern}  >Mudar plano</Button>
-            <Button size={300} backgroundColor={buttonTheme.orange} >Cancelar plano</Button>
-        </Container>
+            <Padding value={100} />
+            <Container>
+                <Title size={24} weight={700}>Olá, {login.name}</Title>
+                <Padding value={20}></Padding>
+                {login.membership.membership.perks.map((value, index) =>
+                    <div key={index}>
+                        <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => navigate(`${value.link}`)}>{value.title}</Button>
+                    </div>
+                )}
+
+                <Padding value={150} />
+                <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => navigate('/subscriptions')} >Mudar plano</Button>
+                <Button size={300} backgroundColor={buttonTheme.orange} onClick={() => deletarPlano() }>Cancelar plano</Button>
+            </Container>
         </>
     )
 
-    
+
 }
 
 const Header = styled.div`

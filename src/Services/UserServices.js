@@ -37,8 +37,17 @@ function confirmSignPlan(body){
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }
-    const confirmSignPlanPromise = axios.post(`${APIPrefix}/subscriptions`, body, config);
+    const confirmSignPlanPromise = axios.post(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions`, body, config);
     return confirmSignPlanPromise;
 }
 
-export { LoginRequest, SignUpRequest, planRequest, signPlanRequest, confirmSignPlan };
+function deletePlan(){
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    const deletePlanPromise = axios.delete(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions`, config);
+    return deletePlanPromise;
+}
+
+export { LoginRequest, SignUpRequest, planRequest, signPlanRequest, confirmSignPlan, deletePlan };

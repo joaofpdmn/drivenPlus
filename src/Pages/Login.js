@@ -43,12 +43,14 @@ export default function Login() {
     //temPlano ? /home : subscriptions
     useEffect(() => {
         if (login !== null && login.membership !== null) {
-            alert("Usuário já detetado. Iremos te transferir para a tela inicial");
+            alert("Usuário já detectado. Iremos te transferir para a tela inicial");
+            localStorage.setItem('myToken', login.token);
             navigate("/home");
             
         }
         else if(login !== null && login.membership === null){
             alert("Usuário detectado, porém sem plano. Iremos te transferir para a tela de escolha de planos.");
+            localStorage.setItem('myToken', login.token);
             navigate("/subscriptions");
             console.log(login);
         }

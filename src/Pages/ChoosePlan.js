@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Container from "../common/Container";
 import Padding from "../common/Padding";
 import Title from "../common/Title";
-import whiteDriven from '../assets/img/whiteVector.png'
 import Plan from "../Components/Plan";
 import { planRequest } from "../Services/UserServices";
 import { useNavigate } from "react-router-dom";
