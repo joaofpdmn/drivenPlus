@@ -20,7 +20,6 @@ export default function WelcomePage() {
     const { login } = useContext(UserContext);
     localStorage.setItem('myToken', login.token);
     const sim = 'sim';
-    console.log(login);
 
     function deletarPlano(){
         if(window.confirm("Você realmente quer deletar seu plano?")){

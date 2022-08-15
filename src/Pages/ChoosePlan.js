@@ -34,7 +34,7 @@ export default function ChoosePlan({ parametro }) {
         else if (login !== null && login.membership === null) {
             alert("Usuário detectado, porém sem plano. Iremos te transferir para a tela de escolha de planos.");
             localStorage.setItem('myToken', login.token);
-            navigate("/subscriptions");
+            navigate("/subscriptions/:simounao");
             console.log(login);
         }
         

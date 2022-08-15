@@ -14,7 +14,6 @@ export default function Users() {
 
     const navigate = useNavigate();
     const { login, setLogin } = useContext(UserContext);
-    console.log(login.token);
     return (
         <>
         <ion-icon name="arrow-back-outline" onClick={() => navigate('/home')} ></ion-icon>
