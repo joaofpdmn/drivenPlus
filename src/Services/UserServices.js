@@ -50,4 +50,14 @@ function deletePlan(){
     return deletePlanPromise;
 }
 
-export { LoginRequest, SignUpRequest, planRequest, signPlanRequest, confirmSignPlan, deletePlan };
+function userUpdateRequest(body){
+    const token = localStorage.getItem('myToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    const userUpdatePromise = axios.put('https://mock-api.driven.com.br/api/v4/driven-plus/users/', body, config);
+    return userUpdatePromise;
+}
+
+
+export { LoginRequest, SignUpRequest, planRequest, signPlanRequest, confirmSignPlan, deletePlan, userUpdateRequest };

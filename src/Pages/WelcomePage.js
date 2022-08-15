@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import whiteDriven from "../assets/img/whiteVector.png"
 import Container from "../common/Container"
 import Title from "../common/Title";
 import Padding from "../common/Padding"
@@ -18,7 +17,9 @@ export default function WelcomePage() {
         gray: 'CECECE'
     };
     const navigate = useNavigate();
-    const { login, setLogin } = useContext(UserContext);
+    const { login } = useContext(UserContext);
+    localStorage.setItem('myToken', login.token);
+    const sim = 'sim';
     console.log(login);
 
     function deletarPlano(){
@@ -27,7 +28,7 @@ export default function WelcomePage() {
             confirmDeletePlanPromise.catch(() => {
                 alert("Não foi possível deletar o plano da sua conta.");
             })
-            .then(response => {
+            .then(() => {
                 login.membership = null;
                 setUserData(login);
                 alert('Plano excluído com sucesso!');
@@ -39,8 +40,8 @@ export default function WelcomePage() {
 
     return (
         <><Header>
-            <img src={whiteDriven} alt="logo" />
-            <ion-icon name="person-circle-outline"></ion-icon>
+            <img src={login.membership.membership.image} alt="logo" />
+            <ion-icon name="person-circle-outline" onClick={() => navigate(`/users/${login.id}`)} ></ion-icon>
         </Header>
             <Padding value={100} />
             <Container>
@@ -48,12 +49,11 @@ export default function WelcomePage() {
                 <Padding value={20}></Padding>
                 {login.membership.membership.perks.map((value, index) =>
                     <div key={index}>
-                        <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => navigate(`${value.link}`)}>{value.title}</Button>
+                        <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => window.open(`${value.link}`, '_blank')}>{value.title}</Button>
                     </div>
                 )}
-
                 <Padding value={150} />
-                <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => navigate('/subscriptions')} >Mudar plano</Button>
+                <Button size={300} backgroundColor={buttonTheme.pattern} onClick={() => navigate(`/subscriptions/${sim}`)} >Mudar plano</Button>
                 <Button size={300} backgroundColor={buttonTheme.orange} onClick={() => deletarPlano() }>Cancelar plano</Button>
             </Container>
         </>

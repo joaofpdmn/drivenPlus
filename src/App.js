@@ -9,6 +9,8 @@ import WelcomePage from './Pages/WelcomePage';
 import UserContext from './Context/UserContext';
 import { getUserData } from './Services/UserData';
 import Payment from './Pages/Payment';
+import Users from './Pages/Users';
+import UserUpdate from './Pages/UserUpdate';
 
 function App() {
   const [login, setLogin] = useState(getUserData());
@@ -19,9 +21,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
-          <Route path='/subscriptions' element={<ChoosePlan />} />
+          <Route path='/subscriptions/:simounao' element={<ChoosePlan />} />
           <Route path='/home' element={<WelcomePage />} />
-          <Route path='/subscriptions/:id' element={<Payment />} />
+          <Route path='/inscricao/:id' element={<Payment />} />
+          <Route path='/users/:id' element={<Users/>}/>
+          <Route path='/users/:id/update' element={<UserUpdate />}/>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

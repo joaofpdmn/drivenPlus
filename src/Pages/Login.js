@@ -24,6 +24,15 @@ export default function Login() {
         password: password,
     };
 
+    useEffect(() => {
+        if (login !== null && login.membership !== null) {
+            alert("Usuário já detectado. Iremos te transferir para a tela inicial");
+            localStorage.setItem('myToken', login.token);
+            navigate('/subscriptions/:simounao');
+
+        }
+    })
+
     function handleSubmit(e) {
         e.preventDefault();
         const loginPromise = LoginRequest(body);
@@ -36,25 +45,12 @@ export default function Login() {
                 setUserData(response.data);
                 localStorage.setItem('myToken', response.data.token);
                 alert("Login realizado com sucesso!");
-                navigate("/home");
+                navigate('/subscriptions/:simounao');
             })
     };
 
     //temPlano ? /home : subscriptions
-    useEffect(() => {
-        if (login !== null && login.membership !== null) {
-            alert("Usuário já detectado. Iremos te transferir para a tela inicial");
-            localStorage.setItem('myToken', login.token);
-            navigate("/home");
-            
-        }
-        else if(login !== null && login.membership === null){
-            alert("Usuário detectado, porém sem plano. Iremos te transferir para a tela de escolha de planos.");
-            localStorage.setItem('myToken', login.token);
-            navigate("/subscriptions");
-            console.log(login);
-        }
-    }, []);
+    
 
     return (
         <Container>
